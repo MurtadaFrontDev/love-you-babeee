@@ -1,0 +1,258 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #2c2c2c;
+    overflow: hidden;
+}
+
+/* ========== FLOATING HEARTS ========== */
+.hearts-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0;
+    animation: float 12s infinite ease-in-out;
+    filter: grayscale(0) hue-rotate(330deg);
+}
+
+.heart:nth-child(1) {
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.heart:nth-child(2) {
+    left: 40%;
+    animation-delay: 3s;
+}
+
+.heart:nth-child(3) {
+    left: 60%;
+    animation-delay: 6s;
+}
+
+.heart:nth-child(4) {
+    left: 80%;
+    animation-delay: 9s;
+}
+
+@keyframes float {
+    0% {
+        bottom: -50px;
+        opacity: 0;
+    }
+
+    15%,
+    85% {
+        opacity: 0.6;
+    }
+
+    100% {
+        bottom: 110vh;
+        opacity: 0;
+    }
+}
+
+/* ========== MAIN CONTAINER ========== */
+.container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 500px;
+    padding: 40px 20px;
+    animation: fadeIn 1s ease-out;
+    max-height: 95vh;
+    overflow-y: auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== VIDEO ========== */
+.video-box {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #ff69b4;
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+}
+
+.video-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    background: linear-gradient(135deg, #fff0f5, #ff69b4, #fff0f5);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientShift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* ========== TEXT ========== */
+.title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #ff1493;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.question {
+    font-family: 'Cairo', sans-serif;
+    font-size: 2rem;
+    color: #666;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+/* ========== BUTTONS ========== */
+.buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 16px 50px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Cairo', sans-serif;
+    border: 2px solid #ff69b4;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-pink {
+    background: #ff69b4;
+    color: white;
+    border-color: #ff69b4;
+}
+
+.btn-pink:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+    background: #ff1493;
+}
+
+.btn-dark {
+    background: #ff69b4;
+    color: white;
+    border-color: #ff69b4;
+}
+
+.btn-dark:hover {
+    background: #ff1493;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+    .container {
+        padding: 30px 15px;
+    }
+
+    .video-box {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 30px;
+    }
+
+    .title {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+    }
+
+    .question {
+        font-size: 1.4rem;
+        margin-bottom: 30px;
+    }
+
+    .btn {
+        padding: 14px 40px;
+        font-size: 1.2rem;
+        width: 100%;
+        /* Full width buttons on mobile */
+        max-width: 280px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

@@ -1,0 +1,245 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #333;
+    overflow: hidden;
+}
+
+/* ========== FLOATING HEARTS ========== */
+.hearts-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0;
+    animation: float 12s infinite ease-in-out;
+}
+
+.heart:nth-child(1) {
+    left: 15%;
+    animation-delay: 1s;
+}
+
+.heart:nth-child(2) {
+    left: 45%;
+    animation-delay: 3s;
+}
+
+.heart:nth-child(3) {
+    left: 75%;
+    animation-delay: 5s;
+}
+
+.heart:nth-child(4) {
+    left: 25%;
+    animation-delay: 7s;
+}
+
+@keyframes float {
+    0% {
+        bottom: -50px;
+        opacity: 0;
+    }
+
+    15%,
+    85% {
+        opacity: 0.6;
+    }
+
+    100% {
+        bottom: 110vh;
+        opacity: 0;
+    }
+}
+
+/* ========== MAIN CONTAINER ========== */
+.container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    text-align: center;
+    max-height: 98vh;
+    /* Prevents overflow on short screens/laptops */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.question-container {
+    background: white;
+    padding: 60px 40px;
+    border-radius: 40px;
+    /* Highly rounded corners */
+    box-shadow: 0 20px 60px rgba(255, 105, 180, 0.15);
+    border: 3px solid #ff1493;
+    animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.main-question {
+    font-family: 'Cairo', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #ff1493;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.decoration-line {
+    width: 100px;
+    height: 3px;
+    background: #ff69b4;
+    margin: 0 auto 30px;
+    border-radius: 2px;
+}
+
+.arabic-text {
+    font-size: 1.5rem;
+    color: #666;
+    margin-bottom: 50px;
+}
+
+.buttons-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    position: relative;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.btn-yes {
+    padding: 15px 60px;
+    font-size: 1.8rem;
+    min-width: 180px;
+    font-weight: 700;
+    font-family: 'Cairo', sans-serif;
+    color: white;
+    background: #ff1493;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
+}
+
+.btn-yes:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.5);
+    background: #ff0080;
+}
+
+.btn-no {
+    padding: 10px 40px;
+    font-size: 1.2rem;
+    min-width: 120px;
+    font-weight: 600;
+    font-family: 'Cairo', sans-serif;
+    color: #666;
+    background: #f0f0f0;
+    border: 2px solid #ddd;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-no:hover {
+    background: #e0e0e0;
+    transform: scale(0.95);
+}
+
+.floating-emoji {
+    font-size: 3rem;
+    position: absolute;
+    right: 20%;
+    top: -40px;
+    animation: floatEmoji 3s infinite ease-in-out;
+}
+
+@keyframes floatEmoji {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(5deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(-5deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .question-container {
+        padding: 40px 20px;
+        width: 100%;
+    }
+
+    .main-question {
+        font-size: 2rem;
+    }
+
+    .arabic-text {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+    }
+
+    .btn-yes {
+        padding: 12px 40px;
+        font-size: 1.3rem;
+        min-width: 150px;
+    }
+
+    .btn-no {
+        padding: 8px 30px;
+        font-size: 1rem;
+        min-width: 100px;
+    }
+
+    .buttons-area {
+        gap: 15px;
+    }
+
+    .container {
+        padding: 10px;
+        overflow-y: auto;
+        /* Handle Yes button growth */
+        max-height: 95vh;
+        display: flex;
+        align-items: center;
+    }
+}
