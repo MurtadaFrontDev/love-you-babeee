@@ -47,7 +47,8 @@
 /* ========== REALISTIC 3D ENVELOPE SYSTEM (Centering Fix) ========== */
 .envelope-wrapper {
     position: fixed;
-    top: 60%;
+    top: 250px;
+    /* Lowered significantly from title */
     left: 50%;
     /* Removed transform here to fix fixed-position children */
     margin-left: -100px;
@@ -290,6 +291,11 @@
         font-size: 1.6rem;
         top: 25px;
         width: 90%;
+    }
+
+    .envelope-wrapper {
+        top: 300px;
+        /* Lowered for mobile */
     }
 
     .envelope-wrapper.open .letter {
