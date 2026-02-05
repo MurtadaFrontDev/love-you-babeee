@@ -15,23 +15,27 @@
 }
 
 /* ========== FINAL MESSAGE TEXT ========== */
-.final-content {
+.final-title {
     position: fixed;
-    top: 2%;
+    top: 25px;
+    /* Clean top position */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000;
+    z-index: 1001;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.2;
+    color: #ff69b4;
+    text-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
     text-align: center;
-    width: 90%;
-    max-width: 700px;
-    animation: fadeInDown 2s ease-out backwards;
-    animation-delay: 3.5s;
+    width: 95%;
+    animation: fadeInDown 2s 3.5s backwards;
 }
 
 @keyframes fadeInDown {
     from {
         opacity: 0;
-        transform: translate(-50%, -30px);
+        transform: translate(-50%, -20px);
     }
 
     to {
@@ -40,52 +44,272 @@
     }
 }
 
-.final-title {
-    font-family: 'Cairo', sans-serif;
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: #ff69b4;
-    text-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
-    margin-bottom: 20px;
+/* ========== REALISTIC 3D ENVELOPE SYSTEM (Centering Fix) ========== */
+.envelope-wrapper {
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    /* Removed transform here to fix fixed-position children */
+    margin-left: -100px;
+    /* Half of width */
+    margin-top: -65px;
+    /* Half of height */
+    z-index: 1000;
+    animation: fadeIn 1s 4s backwards;
+    transition: all 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        margin-top: -45px;
+    }
+
+    to {
+        opacity: 1;
+        margin-top: -65px;
+    }
+}
+
+.envelope {
+    position: relative;
+    width: 200px;
+    height: 130px;
+    background: #ffb6c1;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+}
+
+
+/* When open, the envelope parts disappear */
+.envelope-wrapper.open .envelope-front,
+.envelope-wrapper.open .heart-seal {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.envelope-wrapper.open .envelope {
+    background: transparent;
+    box-shadow: none;
+}
+
+.envelope-front {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    overflow: hidden;
+    transition: opacity 0.5s ease;
+}
+
+/* Flaps using triangles */
+.flap-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-top: 70px solid #ff69b4;
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    z-index: 6;
+}
+
+.flap-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 65px solid transparent;
+    border-bottom: 65px solid transparent;
+    border-left: 110px solid #ffc0cb;
+    z-index: 4;
+}
+
+.flap-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 65px solid transparent;
+    border-bottom: 65px solid transparent;
+    border-right: 110px solid #ffc0cb;
+    z-index: 4;
+}
+
+.flap-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid #ff8da1;
+    z-index: 5;
+}
+
+.letter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(0.1);
+    width: 180px;
+    height: 110px;
+    background: rgba(15, 15, 15, 0.45);
+    backdrop-filter: blur(3px);
+    border: 1px solid rgba(255, 182, 193, 0.3);
+    border-radius: 20px;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 2;
+    overflow: hidden;
+    opacity: 0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Premium Glassmorphism reveal */
+.envelope-wrapper.open .letter {
+    position: fixed;
+    top: 100px;
+    /* Anchor to screen top */
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+    margin: 0;
+    width: 88vw;
+    max-width: 600px;
+    height: auto;
+    max-height: calc(100vh - 130px);
+    /* Leave room at bottom */
+    opacity: 1;
+    z-index: 2000;
+    padding: 30px;
+    background: rgba(15, 15, 15, 0.45);
+    backdrop-filter: blur(3px);
+    border: 2px solid rgba(255, 105, 180, 0.5);
+    box-shadow: 0 0 60px rgba(255, 105, 180, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+.letter-content {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s 0.6s ease;
+    overflow-y: auto;
+    padding-right: 15px;
+    /* Better spacing for scrollbar */
+}
+
+.envelope-wrapper.open .letter-content {
+    opacity: 1;
 }
 
 .final-text {
-    font-family: 'Cairo', sans-serif;
-    font-size: 1.4rem;
-    color: #ffd1dc;
-    line-height: 1.6;
-    opacity: 0.9;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 20px 20px 40px;
-    /* Extra bottom padding for safety */
-    border-radius: 20px;
-    backdrop-filter: blur(2px);
-    /* Reduced blur as requested */
-    border: 1px solid rgba(255, 105, 180, 0.2);
-    max-height: 40vh;
-    /* Stricter limit for Laptop screens */
-    overflow-y: auto;
+    font-family: 'Cairo', sans-serif !important;
+    font-size: 1.2rem !important;
+    color: #ffd1dc !important;
+    line-height: 1.8 !important;
+    text-align: center;
+    border: none !important;
+    background: transparent !important;
+    margin: 0;
+    padding: 0;
 }
 
-/* Custom Scrollbar for the message box */
-.final-text::-webkit-scrollbar {
-    width: 8px;
-}
-
-.final-text::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-}
-
-.final-text::-webkit-scrollbar-thumb {
-    background: #ff69b4;
-    /* Pink scrollbar */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
-}
-
-.final-text::-webkit-scrollbar-thumb:hover {
+/* Heart Seal Styles */
+.heart-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 35px;
+    height: 35px;
     background: #ff1493;
+    transform: translate(-50%, -20%) rotate(45deg);
+    z-index: 7;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+    animation: heartPulse 2s infinite;
+}
+
+.heart-seal::before,
+.heart-seal::after {
+    content: "";
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: #ff1493;
+    border-radius: 50%;
+}
+
+.heart-seal::before {
+    left: -18px;
+}
+
+.heart-seal::after {
+    top: -18px;
+}
+
+@keyframes heartPulse {
+    0% {
+        transform: translate(-50%, -20%) rotate(45deg) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -20%) rotate(45deg) scale(1.1);
+    }
+
+    100% {
+        transform: translate(-50%, -20%) rotate(45deg) scale(1);
+    }
+}
+
+/* Custom Scrollbar */
+.letter-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.letter-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.letter-content::-webkit-scrollbar-thumb {
+    background: #ff69b4;
+    border-radius: 10px;
+}
+
+/* Mobile responsive fixes */
+@media (max-width: 600px) {
+    .final-title {
+        font-size: 1.6rem;
+        top: 25px;
+        width: 90%;
+    }
+
+    .envelope-wrapper.open .letter {
+        width: calc(100% - 50px);
+        /* Generous 25px margin on each side */
+        top: 230px;
+        /* Centered balance */
+        max-height: calc(100vh - 260px);
+        /* Safe bottom gap */
+        padding: 15px;
+    }
+
+    .final-text {
+        font-size: 1.05rem !important;
+        line-height: 1.6 !important;
+    }
+
+    .letter-content::-webkit-scrollbar {
+        width: 4px;
+    }
 }
 
 body {
