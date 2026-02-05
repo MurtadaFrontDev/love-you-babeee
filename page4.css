@@ -29,7 +29,7 @@
     text-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
     text-align: center;
     width: 95%;
-    animation: fadeInDown 2s 3.5s backwards;
+    animation: fadeInDown 2s 0.2s backwards;
 }
 
 @keyframes fadeInDown {
